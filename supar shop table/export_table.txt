@@ -1,0 +1,63 @@
+(1)
+
+
+create table export_client
+(bill_no number(6) CONSTRAINT export_client_Bill_no_pk PRIMARY KEY,
+current_date date,
+client_phone_no number);
+
+----------------------------------
+
+
+(2)
+
+
+
+create table export_product
+(bill_no number(6) CONSTRAINT export_product_Bill_no_fk references export_client(Bill_no),
+sl_no number,particulars varchar2(100),rate number,
+qnty number, amount number,total number);
+
+-------------------------------------------
+
+
+(3)
+
+create table product
+(
+Bill_no NUMBER(6) CONSTRAINT product_Bill_no_fk references export_client(Bill_no),
+product_no number,
+product_name varchar2(25),
+Product_company_rate number,
+Product_Sell_rate  number);
+
+
+
+using clause joining
+------------------------
+
+select bill_no,current_date,client_name,address,sl_no,particulars,rate,qnty,amount,total
+from computer_city_client join computer_city_product
+using (bill_no);
+
+:export_product.rate*:export_product.qnty
+
+
+select NVL(MAX(SL_no),0)+1 INTO:SL_no FROM EXPORT_PRODUCT;
+
+
+
+if :export_product.particulars
+	is null then 
+	declare
+		x boolean
+	BEGIN
+		x:=show_lov('RECORD_GROUP11');
+	END
+	ELSE
+		NULL;
+	END IF;
+
+
+http://localhost:8889/forms/frmservlet?form=G:/FROMS/EXPORT.fmx
+	

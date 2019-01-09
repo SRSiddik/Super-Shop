@@ -1,0 +1,9 @@
+create table sales_item
+(select_item_id number(6) CONSTRAINT select_item_id_pk PRIMARY KEY , 
+item_no number(6)constraint item_no_fk references purchase(item_no),
+item_name varchar2(66), 
+item_catagory varchar2(66),
+ date_and_time date,
+ quantity number(6),
+one_item_price number(6),
+total_price number(6));
